@@ -4,18 +4,20 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Crear producto</title>
+    <jsp:include page="/WEB-INF/includes/headCss.jsp" />
 </head>
 <body>
 <jsp:include page="/WEB-INF/includes/navbar.jsp" />
-
-<h2>Crear producto</h2>
-
-<form method="post" action="<%= request.getContextPath() %>/productos">
+<div class="container">
+  <h2 class="mb-3">Crear producto</h2>
+  <form method="post" action="<%= request.getContextPath() %>/productos" class="row g-3">
     <input type="hidden" name="a" value="create" />
 
-    <label>Categoría:</label>
-    <select name="id_categoria" required>
+    <div class="col-md-6">
+      <label class="form-label">Categoría</label>
+      <select name="id_categoria" class="form-select" required>
         <%
             List<int[]> ids = (List<int[]>) request.getAttribute("categoriasIds");
             List<String> nombres = (List<String>) request.getAttribute("categoriasNombres");
@@ -27,28 +29,36 @@
                 }
             }
         %>
-    </select>
-    <br/>
+      </select>
+    </div>
 
-    <label>Nombre:</label>
-    <input type="text" name="nombre" required />
-    <br/>
+    <div class="col-md-6">
+      <label class="form-label">Nombre</label>
+      <input type="text" name="nombre" class="form-control" required />
+    </div>
 
-    <label>Descripción:</label>
-    <textarea name="descripcion"></textarea>
-    <br/>
+    <div class="col-12">
+      <label class="form-label">Descripción</label>
+      <textarea name="descripcion" class="form-control" rows="3"></textarea>
+    </div>
 
-    <label>Precio:</label>
-    <input type="number" step="0.01" min="0" name="precio" required />
-    <br/>
+    <div class="col-md-6">
+      <label class="form-label">Precio</label>
+      <input type="number" step="0.01" min="0" name="precio" class="form-control" required />
+    </div>
 
-    <label>Stock:</label>
-    <input type="number" min="0" name="stock" required />
-    <br/>
+    <div class="col-md-6">
+      <label class="form-label">Stock</label>
+      <input type="number" min="0" name="stock" class="form-control" required />
+    </div>
 
-    <button type="submit">Guardar</button>
-    </form>
-
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <a href="<%= request.getContextPath() %>/productos" class="btn btn-secondary ms-2">Cancelar</a>
+    </div>
+  </form>
+</div>
+<jsp:include page="/WEB-INF/includes/footer.jsp" />
 </body>
 </html>
 

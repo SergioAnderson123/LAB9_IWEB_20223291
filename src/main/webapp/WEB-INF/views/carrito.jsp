@@ -5,16 +5,18 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Carrito</title>
+    <jsp:include page="/WEB-INF/includes/headCss.jsp" />
 </head>
 <body>
 <jsp:include page="/WEB-INF/includes/navbar.jsp" />
-
-<h2>Carrito</h2>
-
-<table border="1" cellpadding="5" cellspacing="0">
-    <thead>
-    <tr>
+<div class="container">
+  <h2 class="mb-3">Carrito</h2>
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead>
+      <tr>
         <th>ID Item</th>
         <th>ID Producto</th>
         <th>Producto</th>
@@ -22,15 +24,15 @@
         <th>Precio Unitario</th>
         <th>Cantidad</th>
         <th>Subtotal</th>
-    </tr>
-    </thead>
-    <tbody>
-    <%
+      </tr>
+      </thead>
+      <tbody>
+      <%
         List<AnadidoAlCarrritoyListadoDeProductosDto> items = (List<AnadidoAlCarrritoyListadoDeProductosDto>) request.getAttribute("itemsCarrito");
-        if (items != null) {
+        if (items != null && !items.isEmpty()) {
             for (AnadidoAlCarrritoyListadoDeProductosDto it : items) {
-    %>
-    <tr>
+      %>
+      <tr>
         <td><%= it.getIdItem() %></td>
         <td><%= it.getIdProducto() %></td>
         <td><%= it.getNombreProducto() %></td>
@@ -38,14 +40,22 @@
         <td><%= it.getPrecioUnit() %></td>
         <td><%= it.getCantidad() %></td>
         <td><%= it.getSubtotal() %></td>
-    </tr>
-    <%
+      </tr>
+      <%
             }
+        } else {
+      %>
+      <tr>
+        <td colspan="7" class="text-center text-muted">Tu carrito está vacío.</td>
+      </tr>
+      <%
         }
-    %>
-    </tbody>
+      %>
+      </tbody>
     </table>
-
+  </div>
+</div>
+<jsp:include page="/WEB-INF/includes/footer.jsp" />
 </body>
 </html>
 
